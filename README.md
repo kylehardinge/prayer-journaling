@@ -17,7 +17,7 @@ In this project the code is the source of truth rather than the database
 
  - **Note:** Due to lack of time, everyone is a "group administrator" for the groups they are members of, ie. they can do CRUD on the group and add and remove members as they please.
 ## Todo
- - [ ] Setup Databases with Migrations
+ - [x] Setup Databases with Migrations
  - [ ] Identity Authentication
  - [ ] Login/Signup Page
  - [ ] Home Page
