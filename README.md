@@ -2,6 +2,7 @@
 ## Run
 ## Database Diagram
 ![Diagram](db-diagram.svg "Diagram for prayer journaling app")
+In this project the code is the source of truth rather than the database
 ## Session Wireframe
 ![Wireframe](prayer-session.svg "Wireframe for the session view")
 ## Functionality
