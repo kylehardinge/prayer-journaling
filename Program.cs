@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using prayer.Data;
+using prayer.Models;
+using Microsoft.AspNetCore.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,6 +10,8 @@ builder.Services.AddRazorPages();
 
 builder.Services.AddDbContext<PrayerContext>(options => 
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+builder.Services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = false).AddEntityFrameworkStores<PrayerContext>();
 
 var app = builder.Build();
 
