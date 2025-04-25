@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using prayer.Data;
 
@@ -11,9 +12,11 @@ using prayer.Data;
 namespace prayer.Migrations
 {
     [DbContext(typeof(PrayerContext))]
-    partial class PrayerContextModelSnapshot : ModelSnapshot
+    [Migration("20250425195410_RBACRoles")]
+    partial class RBACRoles
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

@@ -1,7 +1,8 @@
 using System;
 using System.Collections.Generic;
-using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using prayer.Models;
 
 namespace prayer.Data;
@@ -46,6 +47,16 @@ public partial class PrayerContext : IdentityDbContext<User>
             .HasOne(m => m.Group)
             .WithMany(u => u.Memberships)
             .HasForeignKey(m => m.GroupId);
+
+        // Define roles for RBAC
+        var admin = new IdentityRole("admin");
+        admin.NormalizedName = "admin";
+
+        var user = new IdentityRole("user");
+        admin.NormalizedName = "user";
+
+        builder.Entity<IdentityRole>().HasData(admin, user);
+
         
     }
 
