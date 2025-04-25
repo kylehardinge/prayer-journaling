@@ -41,3 +41,4 @@ In this project the code is the source of truth rather than the database
     - [ ] Admin: Can do everything (CRUD Group/Prayers/Categories, Add/Remove Members)
     - [ ] Member: Can CR(UD) Own Prayers, Read Categories/Other's prayers, Must use provided categories
  - [ ] Set the frequency to multiple days per week
+ - [ ] Use bootswatch to change the theme
