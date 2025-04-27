@@ -37,7 +37,7 @@ In this project the code is the source of truth rather than the database
 
 ## Future Improvements
  - [ ] Use the [Secrets Manager](https://learn.microsoft.com/en-us/aspnet/core/security/app-secrets?view=aspnetcore-9.0&tabs=linux) tool to store the connection string in a secure manner
- - [ ] Create roles for each user when they are a part of a group (admin, member)
+ - [x] Create roles for each user when they are a part of a group (admin, member)
     - [ ] Admin: Can do everything (CRUD Group/Prayers/Categories, Add/Remove Members)
     - [ ] Member: Can CR(UD) Own Prayers, Read Categories/Other's prayers, Must use provided categories
  - [ ] Set the frequency to multiple days per week
