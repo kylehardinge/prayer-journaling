@@ -24,15 +24,16 @@ In this project the code is the source of truth rather than the database
     - [ ] Start prayer
     - [ ] List groups
     - [ ] Display prayers for personal group
- - [ ] CRUD Prayer
- - [ ] CRUD Groups
- - [ ] CRUD Categories
+ - [x] CRUD Prayer
+ - [x] CRUD Groups
+ - [x] CRUD Categories
  - [ ] CRUD Membership within Groups
     - This will happen on a group page
  - [ ] CRUD Session
     - Timer
     - Way to add prayers to the session
     - Notes section
+ - [ ] Error Handling
 
 
 ## Future Improvements
