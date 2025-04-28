@@ -33,14 +33,6 @@ namespace prayer.Pages.Memberships
         // For more information, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
-            Membership.User = await _context.Users.FindAsync(Membership.UserId);
-            Membership.Group = await _context.Group.FindAsync(Membership.GroupId);
-            foreach(PropertyDescriptor descriptor in TypeDescriptor.GetProperties(Membership))
-            {
-                string name = descriptor.Name;
-                object value = descriptor.GetValue(Membership);
-                Console.WriteLine("{0}={1}", name, value);
-            }
             if (!ModelState.IsValid)
             {
                 
