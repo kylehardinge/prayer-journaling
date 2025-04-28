@@ -1,0 +1,48 @@
+@page
+@model prayer.Pages.Categories.CreateModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Category</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Category.GroupId" class="control-label"></label>
+                <select asp-for="Category.GroupId" class ="form-control" asp-items="ViewBag.GroupId"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Category.Name" class="control-label"></label>
+                <input asp-for="Category.Name" class="form-control" />
+                <span asp-validation-for="Category.Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Category.Recurrence" class="control-label"></label>
+                <input asp-for="Category.Recurrence" class="form-control" />
+                <span asp-validation-for="Category.Recurrence" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Category.RecurrenceValue" class="control-label"></label>
+                <input asp-for="Category.RecurrenceValue" class="form-control" />
+                <span asp-validation-for="Category.RecurrenceValue" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

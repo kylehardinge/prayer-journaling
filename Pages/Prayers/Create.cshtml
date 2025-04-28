@@ -1,0 +1,72 @@
+@page
+@model prayer.Pages.Prayers.CreateModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Prayer</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Prayer.GroupId" class="control-label"></label>
+                <select asp-for="Prayer.GroupId" class ="form-control" asp-items="ViewBag.GroupId"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Prayer.Name" class="control-label"></label>
+                <input asp-for="Prayer.Name" class="form-control" />
+                <span asp-validation-for="Prayer.Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Prayer.Description" class="control-label"></label>
+                <input asp-for="Prayer.Description" class="form-control" />
+                <span asp-validation-for="Prayer.Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Prayer.CategoryName" class="control-label"></label>
+                <select asp-for="Prayer.CategoryName" class ="form-control" asp-items="ViewBag.CategoryName"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Prayer.CreationTime" class="control-label"></label>
+                <input asp-for="Prayer.CreationTime" class="form-control" />
+                <span asp-validation-for="Prayer.CreationTime" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Prayer.UpdateTime" class="control-label"></label>
+                <input asp-for="Prayer.UpdateTime" class="form-control" />
+                <span asp-validation-for="Prayer.UpdateTime" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Prayer.Recurrence" class="control-label"></label>
+                <input asp-for="Prayer.Recurrence" class="form-control" />
+                <span asp-validation-for="Prayer.Recurrence" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Prayer.RecurrenceValue" class="control-label"></label>
+                <input asp-for="Prayer.RecurrenceValue" class="form-control" />
+                <span asp-validation-for="Prayer.RecurrenceValue" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Prayer.Status" class="control-label"></label>
+                <input asp-for="Prayer.Status" class="form-control" />
+                <span asp-validation-for="Prayer.Status" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
