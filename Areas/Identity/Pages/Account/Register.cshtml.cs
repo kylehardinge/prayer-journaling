@@ -19,6 +19,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
 using prayer.Models;
+using prayer.Data;
 
 namespace prayer.Areas.Identity.Pages.Account
 {
@@ -30,13 +31,15 @@ namespace prayer.Areas.Identity.Pages.Account
         private readonly IUserEmailStore<AppUser> _emailStore;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
+        private readonly PrayerContext _context;
 
         public RegisterModel(
             UserManager<AppUser> userManager,
             IUserStore<AppUser> userStore,
             SignInManager<AppUser> signInManager,
             ILogger<RegisterModel> logger,
-            IEmailSender emailSender)
+            IEmailSender emailSender,
+            PrayerContext context)
         {
             _userManager = userManager;
             _userStore = userStore;
@@ -44,6 +47,7 @@ namespace prayer.Areas.Identity.Pages.Account
             _signInManager = signInManager;
             _logger = logger;
             _emailSender = emailSender;
+            _context = context;
         }
 
         /// <summary>
@@ -121,6 +125,32 @@ namespace prayer.Areas.Identity.Pages.Account
 
                 if (result.Succeeded)
                 {
+                    var personalGroup = new Group() {
+                        Name = user.Email + "'s Personal",
+                        Description = "A place for your personal prayer requests",
+                    };
+                    await _context.Group.AddAsync(personalGroup);
+                    await _context.SaveChangesAsync();
+
+                    List<string> names = ["Personal", "Church", "Outreach", "Special Needs"];
+                    foreach (string name in names)
+                    {
+                        var category = new Category() {
+                            Name = name,
+                            Group = personalGroup,
+                        };
+                        await _context.Category.AddAsync(category);
+                    }
+
+                    var membership = new Membership() {
+                        User = user,
+                        Group = personalGroup,
+                        Enrolled = DateTime.Now,
+                    };
+                    await _context.Membership.AddAsync(membership);
+                    await _context.SaveChangesAsync();
+                    
+
                     _logger.LogInformation("User created a new account with password.");
 
                     var userId = await _userManager.GetUserIdAsync(user);
