@@ -28,7 +28,6 @@ namespace prayer.Pages.Prayers
 
         public async Task OnGetAsync()
         {
-            Console.WriteLine("Is this working?");
             var userId = _userManager.GetUserId(User);
             Prayer = await _context.Membership
                 .Where(m => m.UserId == userId)

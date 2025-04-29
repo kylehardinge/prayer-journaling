@@ -15,7 +15,10 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Prayer.CategoryId" class="control-label"></label>
-                <select asp-for="Prayer.CategoryId" class ="form-control" asp-items="ViewBag.CategoryId"></select>
+                <select asp-for="Prayer.CategoryId" class ="form-control" asp-items="Model.CategoryItems">
+                    <option value="">-- Select a category --</option>
+                </select>
+                <span asp-validation-for="Prayer.CategoryId" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Prayer.Name" class="control-label"></label>
@@ -24,18 +27,8 @@
             </div>
             <div class="form-group">
                 <label asp-for="Prayer.Description" class="control-label"></label>
-                <input asp-for="Prayer.Description" class="form-control" />
+                <textarea asp-for="Prayer.Description" class="form-control" rows="10"></textarea>
                 <span asp-validation-for="Prayer.Description" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Prayer.CreationTime" class="control-label"></label>
-                <input asp-for="Prayer.CreationTime" class="form-control" />
-                <span asp-validation-for="Prayer.CreationTime" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Prayer.UpdateTime" class="control-label"></label>
-                <input asp-for="Prayer.UpdateTime" class="form-control" />
-                <span asp-validation-for="Prayer.UpdateTime" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Prayer.Recurrence" class="control-label"></label>

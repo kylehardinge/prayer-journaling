@@ -21,7 +21,7 @@ namespace prayer.Pages.Categories
 
         public IActionResult OnGet()
         {
-        ViewData["GroupId"] = new SelectList(_context.Group, "Id", "Id");
+        ViewData["GroupId"] = new SelectList(_context.Group, "Id", "Name");
             return Page();
         }
 
