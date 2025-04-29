@@ -30,13 +30,13 @@ namespace prayer.Pages.Categories
                 return NotFound();
             }
 
-            var category =  await _context.Category.FirstOrDefaultAsync(m => m.GroupId == id);
+            var category =  await _context.Category.FirstOrDefaultAsync(m => m.Id == id);
             if (category == null)
             {
                 return NotFound();
             }
             Category = category;
-           ViewData["GroupId"] = new SelectList(_context.Group, "GroupId", "GroupId");
+           ViewData["GroupId"] = new SelectList(_context.Group, "Id", "Id");
             return Page();
         }
 
@@ -57,7 +57,7 @@ namespace prayer.Pages.Categories
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!CategoryExists(Category.GroupId))
+                if (!CategoryExists(Category.Id))
                 {
                     return NotFound();
                 }
@@ -72,7 +72,7 @@ namespace prayer.Pages.Categories
 
         private bool CategoryExists(int id)
         {
-            return _context.Category.Any(e => e.GroupId == id);
+            return _context.Category.Any(e => e.Id == id);
         }
     }
 }

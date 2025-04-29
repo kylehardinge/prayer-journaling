@@ -8,7 +8,7 @@ namespace prayer.Models;
 public class Session
 {
     [Key]
-    public int SessionId { get; set; }
+    public int Id { get; set; }
 
     public string? Notes { get; set; }
 
@@ -17,7 +17,7 @@ public class Session
     public DateTime? StopTime { get; set; }
 
     [ForeignKey("UserId")]
-    public User User { get; set; } = null!;
+    public AppUser User { get; set; } = null!;
 
-    public virtual ICollection<Prayer> Prayers { get; set; } = new List<Prayer>();
+    public ICollection<Prayer> Prayers { get; set; } = null!;
 }

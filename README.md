@@ -34,6 +34,8 @@ In this project the code is the source of truth rather than the database
     - Way to add prayers to the session
     - Notes section
  - [ ] Error Handling
+ - [ ] Create new categories on group create
+ - [ ] Create new group on user registration
 
 
 ## Future Improvements

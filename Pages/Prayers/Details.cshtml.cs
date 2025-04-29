@@ -28,7 +28,7 @@ namespace prayer.Pages.Prayers
                 return NotFound();
             }
 
-            var prayer = await _context.Prayer.FirstOrDefaultAsync(m => m.PrayerId == id);
+            var prayer = await _context.Prayer.FirstOrDefaultAsync(m => m.Id == id);
             if (prayer == null)
             {
                 return NotFound();

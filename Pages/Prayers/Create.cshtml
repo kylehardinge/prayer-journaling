@@ -14,8 +14,8 @@
         <form method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="Prayer.GroupId" class="control-label"></label>
-                <select asp-for="Prayer.GroupId" class ="form-control" asp-items="ViewBag.GroupId"></select>
+                <label asp-for="Prayer.CategoryId" class="control-label"></label>
+                <select asp-for="Prayer.CategoryId" class ="form-control" asp-items="ViewBag.CategoryId"></select>
             </div>
             <div class="form-group">
                 <label asp-for="Prayer.Name" class="control-label"></label>
@@ -26,10 +26,6 @@
                 <label asp-for="Prayer.Description" class="control-label"></label>
                 <input asp-for="Prayer.Description" class="form-control" />
                 <span asp-validation-for="Prayer.Description" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Prayer.CategoryName" class="control-label"></label>
-                <select asp-for="Prayer.CategoryName" class ="form-control" asp-items="ViewBag.CategoryName"></select>
             </div>
             <div class="form-group">
                 <label asp-for="Prayer.CreationTime" class="control-label"></label>
@@ -43,7 +39,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="Prayer.Recurrence" class="control-label"></label>
-                <input asp-for="Prayer.Recurrence" class="form-control" />
+                <select asp-for="Prayer.Recurrence" class="form-control" asp-items="Model.RecurrenceList"></select>
                 <span asp-validation-for="Prayer.Recurrence" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -53,7 +49,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="Prayer.Status" class="control-label"></label>
-                <input asp-for="Prayer.Status" class="form-control" />
+                <select asp-for="Prayer.Status" class="form-control" asp-items="Model.StatusList"></select>
                 <span asp-validation-for="Prayer.Status" class="text-danger"></span>
             </div>
             <div class="form-group">

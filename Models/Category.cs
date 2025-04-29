@@ -1,24 +1,25 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 
 namespace prayer.Models;
 
 public class Category
 {
     [Key]
+    public int Id { get; set; }
+
     public int GroupId { get; set; }
 
-    [Key]
     [StringLength(50)]
     public string Name { get; set; } = null!;
+    
 
-    [StringLength(7)]
-    public string Recurrence { get; set; } = null!;
+    // Navigations
 
-    public int? RecurrenceValue { get; set; }
+    [ValidateNever]
+    public Group Group { get; set; } = null!;
 
-    public virtual Group Group { get; set; } = null!;
-
-    public virtual ICollection<Prayer> Prayers { get; set; } = new List<Prayer>();
+    public ICollection<Prayer> Prayers { get; set; } = new List<Prayer>();
 }

@@ -28,7 +28,7 @@ namespace prayer.Pages.Groups
                 return NotFound();
             }
 
-            var group = await _context.Group.FirstOrDefaultAsync(m => m.GroupId == id);
+            var group = await _context.Group.FirstOrDefaultAsync(m => m.Id == id);
             if (group == null)
             {
                 return NotFound();

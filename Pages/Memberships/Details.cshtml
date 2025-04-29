@@ -12,6 +12,12 @@
     <hr />
     <dl class="row">
         <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Membership.Enrolled)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Membership.Enrolled)
+        </dd>
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Membership.User)
         </dt>
         <dd class="col-sm-10">
@@ -21,7 +27,7 @@
             @Html.DisplayNameFor(model => model.Membership.Group)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Membership.Group.GroupId)
+            @Html.DisplayFor(model => model.Membership.Group.Id)
         </dd>
     </dl>
 </div>

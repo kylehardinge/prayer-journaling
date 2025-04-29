@@ -14,6 +14,9 @@
     <thead>
         <tr>
             <th>
+                @Html.DisplayNameFor(model => model.Membership[0].Enrolled)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.Membership[0].User)
             </th>
             <th>
@@ -26,10 +29,13 @@
 @foreach (var item in Model.Membership) {
         <tr>
             <td>
+                @Html.DisplayFor(modelItem => item.Enrolled)
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.User.Id)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Group.GroupId)
+                @Html.DisplayFor(modelItem => item.Group.Id)
             </td>
             <td>
                 @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |

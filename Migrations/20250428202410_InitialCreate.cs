@@ -3,6 +3,8 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
+
 namespace prayer.Migrations
 {
     /// <inheritdoc />
@@ -110,8 +112,8 @@ namespace prayer.Migrations
                 name: "AspNetUserLogins",
                 columns: table => new
                 {
-                    LoginProvider = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    ProviderKey = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    LoginProvider = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
+                    ProviderKey = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
                     ProviderDisplayName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
@@ -155,8 +157,8 @@ namespace prayer.Migrations
                 columns: table => new
                 {
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    LoginProvider = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    LoginProvider = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
                     Value = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
@@ -174,7 +176,7 @@ namespace prayer.Migrations
                 name: "Session",
                 columns: table => new
                 {
-                    SessionId = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Notes = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     StartTime = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -183,7 +185,7 @@ namespace prayer.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Session", x => x.SessionId);
+                    table.PrimaryKey("PK_Session", x => x.Id);
                     table.ForeignKey(
                         name: "FK_Session_AspNetUsers_UserId",
                         column: x => x.UserId,
@@ -196,14 +198,14 @@ namespace prayer.Migrations
                 name: "Category",
                 columns: table => new
                 {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     GroupId = table.Column<int>(type: "int", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    Recurrence = table.Column<string>(type: "nvarchar(7)", maxLength: 7, nullable: false),
-                    RecurrenceValue = table.Column<int>(type: "int", nullable: true)
+                    Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Category", x => new { x.GroupId, x.Name });
+                    table.PrimaryKey("PK_Category", x => x.Id);
                     table.ForeignKey(
                         name: "FK_Category_Group_GroupId",
                         column: x => x.GroupId,
@@ -240,26 +242,25 @@ namespace prayer.Migrations
                 name: "Prayer",
                 columns: table => new
                 {
-                    PrayerId = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    GroupId = table.Column<int>(type: "int", nullable: false),
+                    CategoryId = table.Column<int>(type: "int", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CategoryName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     CreationTime = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdateTime = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    Recurrence = table.Column<string>(type: "nvarchar(7)", maxLength: 7, nullable: false),
+                    Recurrence = table.Column<int>(type: "int", nullable: false),
                     RecurrenceValue = table.Column<int>(type: "int", nullable: true),
                     Status = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Prayer", x => x.PrayerId);
+                    table.PrimaryKey("PK_Prayer", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Prayer_Category_GroupId_CategoryName",
-                        columns: x => new { x.GroupId, x.CategoryName },
+                        name: "FK_Prayer_Category_CategoryId",
+                        column: x => x.CategoryId,
                         principalTable: "Category",
-                        principalColumns: new[] { "GroupId", "Name" },
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -267,24 +268,33 @@ namespace prayer.Migrations
                 name: "PrayerSession",
                 columns: table => new
                 {
-                    PrayersPrayerId = table.Column<int>(type: "int", nullable: false),
-                    SessionsSessionId = table.Column<int>(type: "int", nullable: false)
+                    PrayersId = table.Column<int>(type: "int", nullable: false),
+                    SessionsId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_PrayerSession", x => new { x.PrayersPrayerId, x.SessionsSessionId });
+                    table.PrimaryKey("PK_PrayerSession", x => new { x.PrayersId, x.SessionsId });
                     table.ForeignKey(
-                        name: "FK_PrayerSession_Prayer_PrayersPrayerId",
-                        column: x => x.PrayersPrayerId,
+                        name: "FK_PrayerSession_Prayer_PrayersId",
+                        column: x => x.PrayersId,
                         principalTable: "Prayer",
-                        principalColumn: "PrayerId",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_PrayerSession_Session_SessionsSessionId",
-                        column: x => x.SessionsSessionId,
+                        name: "FK_PrayerSession_Session_SessionsId",
+                        column: x => x.SessionsId,
                         principalTable: "Session",
-                        principalColumn: "SessionId",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.InsertData(
+                table: "AspNetRoles",
+                columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
+                values: new object[,]
+                {
+                    { "c0925717-d574-4773-ba19-9e226eda3e5d", null, "user", null },
+                    { "e2837126-9edd-419d-9f81-a2ea97498bbd", null, "admin", "user" }
                 });
 
             migrationBuilder.CreateIndex(
@@ -327,19 +337,24 @@ namespace prayer.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Category_GroupId",
+                table: "Category",
+                column: "GroupId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Membership_GroupId",
                 table: "Membership",
                 column: "GroupId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Prayer_GroupId_CategoryName",
+                name: "IX_Prayer_CategoryId",
                 table: "Prayer",
-                columns: new[] { "GroupId", "CategoryName" });
+                column: "CategoryId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_PrayerSession_SessionsSessionId",
+                name: "IX_PrayerSession_SessionsId",
                 table: "PrayerSession",
-                column: "SessionsSessionId");
+                column: "SessionsId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Session_UserId",

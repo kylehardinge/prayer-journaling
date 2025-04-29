@@ -1,5 +1,4 @@
 using System;
-using System.ComponentModel;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -22,8 +21,8 @@ namespace prayer.Pages.Memberships
 
         public IActionResult OnGet()
         {
-            ViewData["GroupId"] = new SelectList(_context.Group, "GroupId", "GroupId");
-            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id");
+        ViewData["GroupId"] = new SelectList(_context.Group, "Id", "Id");
+        ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id");
             return Page();
         }
 
@@ -35,11 +34,8 @@ namespace prayer.Pages.Memberships
         {
             if (!ModelState.IsValid)
             {
-                
-                Console.WriteLine("Failed");
                 return Page();
             }
-            Console.WriteLine("Passed Validity");
 
             _context.Membership.Add(Membership);
             await _context.SaveChangesAsync();

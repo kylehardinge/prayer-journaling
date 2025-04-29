@@ -11,7 +11,7 @@ builder.Services.AddRazorPages();
 builder.Services.AddDbContext<PrayerContext>(options => 
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-builder.Services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = false).AddEntityFrameworkStores<PrayerContext>();
+builder.Services.AddDefaultIdentity<AppUser>(options => options.SignIn.RequireConfirmedAccount = false).AddEntityFrameworkStores<PrayerContext>();
 
 var app = builder.Build();
 

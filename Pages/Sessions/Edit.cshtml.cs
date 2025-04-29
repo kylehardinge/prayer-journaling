@@ -30,7 +30,7 @@ namespace prayer.Pages.Sessions
                 return NotFound();
             }
 
-            var session =  await _context.Session.FirstOrDefaultAsync(m => m.SessionId == id);
+            var session =  await _context.Session.FirstOrDefaultAsync(m => m.Id == id);
             if (session == null)
             {
                 return NotFound();
@@ -56,7 +56,7 @@ namespace prayer.Pages.Sessions
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!SessionExists(Session.SessionId))
+                if (!SessionExists(Session.Id))
                 {
                     return NotFound();
                 }
@@ -71,7 +71,7 @@ namespace prayer.Pages.Sessions
 
         private bool SessionExists(int id)
         {
-            return _context.Session.Any(e => e.SessionId == id);
+            return _context.Session.Any(e => e.Id == id);
         }
     }
 }

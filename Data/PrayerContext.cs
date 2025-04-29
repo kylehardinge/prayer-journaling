@@ -7,7 +7,7 @@ using prayer.Models;
 
 namespace prayer.Data;
 
-public partial class PrayerContext : IdentityDbContext<User>
+public partial class PrayerContext : IdentityDbContext<AppUser>
 {
     public DbSet<Category> Category { get; set; } = null!;
 
@@ -33,7 +33,6 @@ public partial class PrayerContext : IdentityDbContext<User>
 
     protected override void OnModelCreating(ModelBuilder builder) {
         base.OnModelCreating(builder);
-        builder.Entity<Category>().HasKey(c => new {c.GroupId, c.Name});
         
         // Define the UserGroup relation
         builder.Entity<Membership>().HasKey(m => new {m.UserId, m.GroupId});

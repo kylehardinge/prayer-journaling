@@ -36,7 +36,7 @@ namespace prayer.Pages.Memberships
                 return NotFound();
             }
             Membership = membership;
-           ViewData["GroupId"] = new SelectList(_context.Group, "GroupId", "GroupId");
+           ViewData["GroupId"] = new SelectList(_context.Group, "Id", "Id");
            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id");
             return Page();
         }

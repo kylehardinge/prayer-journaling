@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using prayer.Data;
 
@@ -11,9 +12,11 @@ using prayer.Data;
 namespace prayer.Migrations
 {
     [DbContext(typeof(PrayerContext))]
-    partial class PrayerContextModelSnapshot : ModelSnapshot
+    [Migration("20250428212701_AddMigrationEnrollment")]
+    partial class AddMigrationEnrollment
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -51,13 +54,13 @@ namespace prayer.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "9c85b341-8340-41c5-bff7-9a58559d0dbf",
+                            Id = "08f5ddab-5e6a-43e9-920c-93391ebef5e1",
                             Name = "admin",
                             NormalizedName = "user"
                         },
                         new
                         {
-                            Id = "b9d21c34-489e-444b-a591-837b96edc887",
+                            Id = "ae2527a1-ab19-4b93-bc02-a07234476c3e",
                             Name = "user"
                         });
                 });
@@ -343,8 +346,10 @@ namespace prayer.Migrations
                     b.Property<int?>("RecurrenceValue")
                         .HasColumnType("int");
 
-                    b.Property<int>("Status")
-                        .HasColumnType("int");
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasMaxLength(15)
+                        .HasColumnType("nvarchar(15)");
 
                     b.Property<DateTime?>("UpdateTime")
                         .HasColumnType("datetime2");

@@ -28,7 +28,7 @@ namespace prayer.Pages.Sessions
                 return NotFound();
             }
 
-            var session = await _context.Session.FirstOrDefaultAsync(m => m.SessionId == id);
+            var session = await _context.Session.FirstOrDefaultAsync(m => m.Id == id);
             if (session == null)
             {
                 return NotFound();

@@ -14,6 +14,9 @@ namespace prayer.Pages.Prayers
     {
         private readonly prayer.Data.PrayerContext _context;
 
+        public SelectList RecurrenceList { get; set; } = null!;
+        public SelectList StatusList { get; set; } = null!;
+
         public CreateModel(prayer.Data.PrayerContext context)
         {
             _context = context;
@@ -21,8 +24,10 @@ namespace prayer.Pages.Prayers
 
         public IActionResult OnGet()
         {
-        ViewData["GroupId"] = new SelectList(_context.Category, "GroupId", "Name");
-        // ViewData["Recurrence"] = new SelectListItem(Prayer.RecurrenceValue);
+            ViewData["CategoryId"] = new SelectList(_context.Category, "Id", "Name");
+            RecurrenceList = new SelectList(Enum.GetValues(typeof(RecurrenceOptions)).Cast<RecurrenceOptions>());
+            StatusList = new SelectList(Enum.GetValues(typeof(StatusOptions)).Cast<StatusOptions>());
+
             return Page();
         }
 

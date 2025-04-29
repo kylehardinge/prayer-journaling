@@ -30,7 +30,7 @@ namespace prayer.Pages.Groups
                 return NotFound();
             }
 
-            var group =  await _context.Group.FirstOrDefaultAsync(m => m.GroupId == id);
+            var group =  await _context.Group.FirstOrDefaultAsync(m => m.Id == id);
             if (group == null)
             {
                 return NotFound();
@@ -56,7 +56,7 @@ namespace prayer.Pages.Groups
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!GroupExists(Group.GroupId))
+                if (!GroupExists(Group.Id))
                 {
                     return NotFound();
                 }
@@ -71,7 +71,7 @@ namespace prayer.Pages.Groups
 
         private bool GroupExists(int id)
         {
-            return _context.Group.Any(e => e.GroupId == id);
+            return _context.Group.Any(e => e.Id == id);
         }
     }
 }

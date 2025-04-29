@@ -28,7 +28,7 @@ namespace prayer.Pages.Categories
                 return NotFound();
             }
 
-            var category = await _context.Category.FirstOrDefaultAsync(m => m.GroupId == id);
+            var category = await _context.Category.FirstOrDefaultAsync(m => m.Id == id);
             if (category == null)
             {
                 return NotFound();

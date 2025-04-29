@@ -16,14 +16,14 @@ namespace prayer.Pages.Sessions
     public class NewModel : PageModel
     {
         private readonly prayer.Data.PrayerContext _context;
-        private readonly UserManager<User> _userManager;
+        private readonly UserManager<AppUser> _userManager;
 
-        public User? currentUser;
+        public AppUser? currentUser;
 
         [BindProperty]
         public Session Session { get; set; } = default!;
 
-        public NewModel(UserManager<User> userManager, prayer.Data.PrayerContext context)
+        public NewModel(UserManager<AppUser> userManager, prayer.Data.PrayerContext context)
         {
             _context = context;
             _userManager = userManager;
@@ -42,8 +42,8 @@ namespace prayer.Pages.Sessions
             Session.StartTime = DateTime.Now;
             _context.Session.Add(Session);
             _context.SaveChanges();
-            Console.WriteLine("Id: " + Session.SessionId);
-            return RedirectToPage("./Details", new { id = Session.SessionId });
+            Console.WriteLine("Id: " + Session.Id);
+            return RedirectToPage("./Details", new { id = Session.Id });
         }
     }
 }

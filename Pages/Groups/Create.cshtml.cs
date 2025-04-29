@@ -1,4 +1,5 @@
 using System;
+using System.ComponentModel;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -30,8 +31,21 @@ namespace prayer.Pages.Groups
         // For more information, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
+            foreach(PropertyDescriptor descriptor in TypeDescriptor.GetProperties(Group))
+            {
+                string name = descriptor.Name;
+                object value = descriptor.GetValue(Group);
+                Console.WriteLine("{0}={1}", name, value);
+            }
             if (!ModelState.IsValid)
             {
+                foreach (var state in ModelState)
+                {
+                    foreach (var error in state.Value.Errors)
+                    {
+                        Console.WriteLine($"Field: {state.Key}, Error: {error.ErrorMessage}");
+                    }
+                }
                 return Page();
             }
 
