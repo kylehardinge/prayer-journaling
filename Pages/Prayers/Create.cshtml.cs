@@ -12,12 +12,12 @@ namespace prayer.Pages.Prayers
 {
     public class CreateModel : PageModel
     {
-        private readonly prayer.Data.PrayerContext _context;
+        private readonly Data.PrayerContext _context;
 
         public SelectList RecurrenceList { get; set; } = null!;
         public SelectList StatusList { get; set; } = null!;
 
-        public CreateModel(prayer.Data.PrayerContext context)
+        public CreateModel(Data.PrayerContext context)
         {
             _context = context;
         }
