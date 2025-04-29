@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
@@ -12,24 +8,26 @@ namespace prayer.Pages.Memberships
 {
     public class DeleteModel : PageModel
     {
-        private readonly prayer.Data.PrayerContext _context;
+        private readonly PrayerContext _context;
 
-        public DeleteModel(prayer.Data.PrayerContext context)
+        public DeleteModel(PrayerContext context)
         {
             _context = context;
         }
 
+        // composite key parts, mark SupportsGet so they bind in OnGet
+        [BindProperty(SupportsGet = true)]
+        public string UserId { get; set; } = default!;
+
+        [BindProperty(SupportsGet = true)]
+        public int GroupId { get; set; }
+
         [BindProperty]
         public Membership Membership { get; set; } = default!;
 
-        public async Task<IActionResult> OnGetAsync(string id)
+        public async Task<IActionResult> OnGetAsync()
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var membership = await _context.Membership.FirstOrDefaultAsync(m => m.UserId == id);
+            var membership =  await _context.Membership.FirstOrDefaultAsync(m => m.UserId == UserId && m.GroupId == GroupId);
 
             if (membership == null)
             {
@@ -42,14 +40,9 @@ namespace prayer.Pages.Memberships
             return Page();
         }
 
-        public async Task<IActionResult> OnPostAsync(string id)
+        public async Task<IActionResult> OnPostAsync()
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var membership = await _context.Membership.FindAsync(id);
+            var membership =  await _context.Membership.FindAsync(UserId, GroupId);
             if (membership != null)
             {
                 Membership = membership;

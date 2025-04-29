@@ -21,8 +21,8 @@ namespace prayer.Pages.Memberships
 
         public IActionResult OnGet()
         {
-        ViewData["GroupId"] = new SelectList(_context.Group, "Id", "Id");
-        ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id");
+        ViewData["GroupId"] = new SelectList(_context.Group, "Id", "Name");
+        ViewData["UserId"] = new SelectList(_context.Users, "Id", "Email");
             return Page();
         }
 
