@@ -14,37 +14,37 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Prayer[0].Name)
+                @Html.DisplayNameFor(model => model.Prayers[0].Name)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Prayer[0].Description)
+                @Html.DisplayNameFor(model => model.Prayers[0].Description)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Prayer[0].CreationTime)
+                @Html.DisplayNameFor(model => model.Prayers[0].CreationTime)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Prayer[0].UpdateTime)
+                @Html.DisplayNameFor(model => model.Prayers[0].UpdateTime)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Prayer[0].Recurrence)
+                @Html.DisplayNameFor(model => model.Prayers[0].Recurrence)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Prayer[0].RecurrenceValue)
+                @Html.DisplayNameFor(model => model.Prayers[0].RecurrenceValue)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Prayer[0].Status)
+                @Html.DisplayNameFor(model => model.Prayers[0].Status)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Prayer[0].Category.Group)
+                @Html.DisplayNameFor(model => model.Prayers[0].Category.Group)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Prayer[0].Category)
+                @Html.DisplayNameFor(model => model.Prayers[0].Category)
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.Prayer) {
+@foreach (var item in Model.Prayers) {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Name)

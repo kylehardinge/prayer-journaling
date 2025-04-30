@@ -21,6 +21,7 @@ namespace prayer.Pages.Prayers
 
         public SelectList RecurrenceList { get; set; } = null!;
         public SelectList StatusList { get; set; } = null!;
+        public List<SelectListItem> CategoryItems { get; set; }
 
 
         public CreateModel(PrayerContext context, UserManager<AppUser> userManager)
@@ -29,7 +30,6 @@ namespace prayer.Pages.Prayers
             _userManager = userManager;
         }
 
-        public List<SelectListItem> CategoryItems { get; set; }
 
         public async Task<IActionResult> OnGetAsync()
         {

@@ -24,16 +24,13 @@ namespace prayer.Pages.Prayers
             _userManager = userManager;
         }
 
-        public IList<Prayer> Prayer { get;set; } = default!;
+        public IList<Prayer> Prayers { get;set; } = default!;
 
         public async Task OnGetAsync()
         {
             var userId = _userManager.GetUserId(User);
-            Prayer = await _context.Membership
-                .Where(m => m.UserId == userId)
-                .SelectMany(m => m.Group.Categories)
-                .SelectMany(c => c.Prayers)
-                .ToListAsync();
+            
+            Prayers = await Prayer.GetPrayersFiltered(_context, userId, new FilterOptions() {ExtraOptions = ExtraFilterOptions.Unarchived});
         }
     }
 }

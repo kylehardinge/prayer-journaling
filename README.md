@@ -17,12 +17,23 @@ In this project the code is the source of truth rather than the database
 
  - **Note:** Due to lack of time, everyone is a "group administrator" for the groups they are members of, ie. they can do CRUD on the group and add and remove members as they please.
 ## Todo
+ - [ ] Add users to group from group page
+ - [ ] Add categories from group page
+ - [ ] Add prayers from group page
+ - [ ] Add prayers from category page
+ - [ ] Prayer cards
+ - [ ] Filter Prayers based on group, category, status, today, etc.
+ - [ ] Stop session
+ - [ ] Add prayers to session
+ - [ ] Working recurrence
+ - [ ] Better recurrence input (js/server-side validation)
+ - [ ] Improve UI
  - [x] Setup Databases with Migrations
  - [x] Identity Authentication
  - [x] Login/Signup Page
  - [ ] Home Page
-    - [ ] Start prayer
-    - [ ] List groups
+    - [x] Start prayer
+    - [x] List groups
     - [ ] Display prayers for personal group
  - [x] CRUD Prayer
  - [x] CRUD Groups
@@ -34,13 +45,13 @@ In this project the code is the source of truth rather than the database
     - Way to add prayers to the session
     - Notes section
  - [ ] Error Handling
- - [ ] Create new categories on group create
- - [ ] Create new group on user registration
+ - [x] Create new categories on group create
+ - [x] Create new group on user registration
 
 
 ## Future Improvements
  - [ ] Use the [Secrets Manager](https://learn.microsoft.com/en-us/aspnet/core/security/app-secrets?view=aspnetcore-9.0&tabs=linux) tool to store the connection string in a secure manner
- - [x] Create roles for each user when they are a part of a group (admin, member)
+ - [ ] Create roles for each user when they are a part of a group (admin, member)
     - [ ] Admin: Can do everything (CRUD Group/Prayers/Categories, Add/Remove Members)
     - [ ] Member: Can CR(UD) Own Prayers, Read Categories/Other's prayers, Must use provided categories
  - [ ] Set the frequency to multiple days per week
