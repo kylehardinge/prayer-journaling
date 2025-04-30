@@ -20,6 +20,7 @@ namespace prayer.Pages.Categories
         }
 
         public Category Category { get; set; } = default!;
+        public List<Prayer> Prayers { get; set; } = new List<Prayer>();
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -37,6 +38,10 @@ namespace prayer.Pages.Categories
             {
                 Category = category;
             }
+            Prayers = await _context.Prayer
+                .Where(p => p.CategoryId == Category.Id && p.Status != StatusOptions.Archived)
+                .ToListAsync();
+
             return Page();
         }
     }

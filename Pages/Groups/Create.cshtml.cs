@@ -3,6 +3,8 @@ using System.ComponentModel;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -11,13 +13,16 @@ using prayer.Models;
 
 namespace prayer.Pages.Groups
 {
+    [Authorize]
     public class CreateModel : PageModel
     {
-        private readonly prayer.Data.PrayerContext _context;
+        private readonly PrayerContext _context;
+        private readonly UserManager<AppUser> _userManager;
 
-        public CreateModel(prayer.Data.PrayerContext context)
+        public CreateModel(PrayerContext context, UserManager<AppUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         public IActionResult OnGet()
@@ -31,25 +36,14 @@ namespace prayer.Pages.Groups
         // For more information, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
-            foreach(PropertyDescriptor descriptor in TypeDescriptor.GetProperties(Group))
-            {
-                string name = descriptor.Name;
-                object value = descriptor.GetValue(Group);
-                Console.WriteLine("{0}={1}", name, value);
-            }
             if (!ModelState.IsValid)
             {
-                foreach (var state in ModelState)
-                {
-                    foreach (var error in state.Value.Errors)
-                    {
-                        Console.WriteLine($"Field: {state.Key}, Error: {error.ErrorMessage}");
-                    }
-                }
                 return Page();
             }
 
             _context.Group.Add(Group);
+            var user = await _userManager.GetUserAsync(User);
+            Group.AddDefaults(_context, user);
             await _context.SaveChangesAsync();
 
             return RedirectToPage("./Index");

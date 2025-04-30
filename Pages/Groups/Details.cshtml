@@ -24,6 +24,26 @@
             @Html.DisplayFor(model => model.Group.Description)
         </dd>
     </dl>
+    @foreach (var category in Model.Prayers) {
+        <h2>
+            <a asp-page="../Categories/Details" asp-route-id="@category.Key.Id">@Html.DisplayFor(modelItem => category.Key.Name)</a>
+        </h2>
+        <table>
+        @foreach (var prayer in category.Value) {
+            <td>
+                @Html.DisplayFor(modelItem => prayer.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => prayer.Description)
+            </td>
+            <td>
+                <a asp-page="../Prayers/Edit" asp-route-id="@prayer.Id">Edit</a> |
+                <a asp-page="../Prayers/Details" asp-route-id="@prayer.Id">Details</a> |
+                <a asp-page="../Prayers/Delete" asp-route-id="@prayer.Id">Delete</a>
+            </td>
+            }
+        </table>
+    }
 </div>
 <div>
     <a asp-page="./Edit" asp-route-id="@Model.Group.Id">Edit</a> |

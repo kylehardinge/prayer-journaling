@@ -20,6 +20,7 @@ namespace prayer.Pages.Groups
         }
 
         public Group Group { get; set; } = default!;
+        public Dictionary<Category, List<Prayer>> Prayers { get; set; } = new Dictionary<Category, List<Prayer>>();
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -37,6 +38,20 @@ namespace prayer.Pages.Groups
             {
                 Group = group;
             }
+            var categories = await _context.Category
+                .Where(c => c.GroupId == Group.Id)
+                .ToListAsync();
+            foreach (Category category in categories)
+            {
+                var catPrayers = await _context.Prayer
+                    .Where(p => p.CategoryId == category.Id && p.Status != StatusOptions.Archived)
+                    .ToListAsync();
+                if (catPrayers == null) {
+                    catPrayers = new List<Prayer>();
+                }
+                Prayers.Add(category, catPrayers);
+            }
+
             return Page();
         }
     }
