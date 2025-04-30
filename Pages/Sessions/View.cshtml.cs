@@ -19,7 +19,9 @@ namespace prayer.Pages.Sessions
             _context = context;
         }
 
+        [BindProperty]
         public Session Session { get; set; } = default!;
+        public List<Prayer> SessionPrayers { get; set; } = new List<Prayer>();
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -37,14 +39,29 @@ namespace prayer.Pages.Sessions
             {
                 Session = session;
             }
-            if (Session.StopTime == null) {
-                return Partial("_ViewInProgress");
+            if (Session.StopTime != null) {
+                return Redirect("./Details");
             }
-            return Partial("_ViewComplete");
+            SessionPrayers = await _context.Session
+                .SelectMany(s => s.Prayings)
+                .Where(s => s.SessionId == Session.Id)
+                .Select(p => p.Prayer)
+                .ToListAsync();
+            
+            return Page();
+            // if (Session.StopTime == null) {
+            //     return Partial("_ViewInProgress");
+            // }
+            // return Partial("_ViewComplete");
         }
 
-        public async Task<IActionResult> OnPostAsync()
+        public async Task<IActionResult> OnPostAsync(int? id)
         {
+
+            if (!ModelState.IsValid)
+            {
+                return Page();
+            }
 
             if (Session.StopTime != null)
             {
@@ -71,7 +88,7 @@ namespace prayer.Pages.Sessions
                 }
             }
 
-            return RedirectToPage("./Index");
+            return RedirectToPage("./Home");
         }
 
         private bool SessionExists(int id)

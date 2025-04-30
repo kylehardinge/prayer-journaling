@@ -22,9 +22,9 @@ In this project the code is the source of truth rather than the database
  - [ ] Add prayers from group page
  - [ ] Add prayers from category page
  - [ ] Prayer cards
- - [ ] Filter Prayers based on group, category, status, today, etc.
+ - [x] Filter Prayers based on group, category, status, today, etc.
  - [ ] Stop session
- - [ ] Add prayers to session
+ - [x] Add prayers to session
  - [ ] Working recurrence
  - [ ] Better recurrence input (js/server-side validation)
  - [ ] Improve UI
@@ -41,9 +41,8 @@ In this project the code is the source of truth rather than the database
  - [ ] CRUD Membership within Groups
     - This will happen on a group page
  - [ ] CRUD Session
-    - Timer
-    - Way to add prayers to the session
-    - Notes section
+    - [x] Way to add prayers to the session automatically
+    - [x] Notes section
  - [ ] Error Handling
  - [x] Create new categories on group create
  - [x] Create new group on user registration
@@ -57,3 +56,5 @@ In this project the code is the source of truth rather than the database
  - [ ] Set the frequency to multiple days per week
  - [x] Use bootswatch to change the theme
  - [ ] Dark mode switcher
+ - [ ] Timer
+ - [ ] Manually add prayers to the group

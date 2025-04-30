@@ -10,6 +10,7 @@
 <div>
     <h4>Group</h4>
     <hr />
+    <a asp-page="../Prayers/Create" asp-route-FromGroupId="@Model.Group.Id">New Prayer</a>
     <dl class="row">
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Group.Name)
@@ -28,6 +29,7 @@
         <h2>
             <a asp-page="../Categories/Details" asp-route-id="@category.Key.Id">@Html.DisplayFor(modelItem => category.Key.Name)</a>
         </h2>
+        <a asp-page="../Prayers/Create" asp-route-FromCategoryId="@category.Key.Id">New Prayer</a>
         <table>
         @foreach (var prayer in category.Value) {
             <td>

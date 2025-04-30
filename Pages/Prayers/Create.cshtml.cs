@@ -23,6 +23,11 @@ namespace prayer.Pages.Prayers
         public SelectList StatusList { get; set; } = null!;
         public List<SelectListItem> CategoryItems { get; set; }
 
+        [BindProperty(SupportsGet = true)]
+        public int? FromGroupId { get; set; }
+        [BindProperty(SupportsGet = true)]
+        public int? FromCategoryId { get; set; }
+
 
         public CreateModel(PrayerContext context, UserManager<AppUser> userManager)
         {
@@ -35,21 +40,26 @@ namespace prayer.Pages.Prayers
         {
             var userId = _userManager.GetUserId(User);
 
-            var groups = await _context.Membership
+            var Gquery = _context.Membership
                 .Where(m => m.UserId == userId)
                 .Include(m => m.Group)
                 .ThenInclude(g => g.Categories)
-                .Select(m => m.Group)
-                .ToListAsync();
+                .Select(m => m.Group);
+            if (FromGroupId != null) {
+                Gquery = Gquery.Where(g => g.Id == FromGroupId);
+            }
+
+            var groups = await Gquery.ToListAsync();
             
             var items = new List<SelectListItem>();
             foreach (var g in groups)
             {
-                Console.WriteLine(g.Name);
                 var optGroup = new SelectListGroup { Name = g.Name };
                 foreach (var c in g.Categories)
                 {
-                    Console.WriteLine('\t' + c.Name);
+                    if (FromCategoryId != null && c.Id != FromCategoryId) {
+                        continue;
+                    }
                     items.Add(new SelectListItem() {
                             Value = c.Id.ToString(),
                             Text = c.Name,

@@ -52,7 +52,7 @@ namespace prayer.Pages.Sessions
                 _context.Praying.Add(praying);
             }
             _context.SaveChanges();
-            return RedirectToPage("./Details", new { id = Session.Id });
+            return RedirectToPage("./View", new { id = Session.Id });
         }
     }
 }
