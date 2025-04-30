@@ -1,5 +1,6 @@
 @page
 @model prayer.Pages.Prayers.IndexModel
+@using prayer.Models;
 
 @{
     ViewData["Title"] = "Index";
@@ -76,3 +77,21 @@
 }
     </tbody>
 </table>
+@foreach (var item in Model.Prayer) {
+<div class="card @(item.Status == StatusOptions.Answered ? "border-success" : "")" style="width: 18rem;">
+    <div class="card-body">
+        <h6 class="text-body-tertiary"><a asp-page="../Categories/Details" asp-route-id="@item.Category.Id">@Html.DisplayFor(modelItem => item.Category.Name)</a></h6>
+        <h5 class="card-title"><a asp-page="../Prayers/Details" asp-route-id="@item.Id">@Html.DisplayFor(modelItem => item.Name)</a></h5>
+        <p class="card-text">@Html.DisplayFor(modelItem => item.Description)</p>
+    </div>
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item">@Html.DisplayFor(modelItem => item.CreationTime)</li>
+        <li class="list-group-item">@Html.DisplayFor(modelItem => item.Status)</li>
+    </ul>
+    <div class="card-body">
+        <a class="card-link" asp-page="./Edit" asp-route-id="@item.Id">Edit</a>
+        <a class="card-link" asp-page="./Details" asp-route-id="@item.Id">Details</a>
+        <a class="card-link" asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+    </div>
+</div>
+}
