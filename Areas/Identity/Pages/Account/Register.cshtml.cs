@@ -130,24 +130,8 @@ namespace prayer.Areas.Identity.Pages.Account
                         Description = "A place for your personal prayer requests",
                     };
                     await _context.Group.AddAsync(personalGroup);
-                    await _context.SaveChangesAsync();
 
-                    List<string> names = ["Personal", "Church", "Outreach", "Special Needs"];
-                    foreach (string name in names)
-                    {
-                        var category = new Category() {
-                            Name = name,
-                            Group = personalGroup,
-                        };
-                        await _context.Category.AddAsync(category);
-                    }
-
-                    var membership = new Membership() {
-                        User = user,
-                        Group = personalGroup,
-                        Enrolled = DateTime.Now,
-                    };
-                    await _context.Membership.AddAsync(membership);
+                    personalGroup.AddDefaults(_context, user);
                     await _context.SaveChangesAsync();
                     
 

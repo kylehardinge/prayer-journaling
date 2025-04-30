@@ -71,12 +71,12 @@ namespace prayer.Pages.Prayers
         // For more information, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
+            Prayer.CreationTime = DateTime.Now;
             if (!ModelState.IsValid)
             {
                 return Page();
             }
 
-            Prayer.CreationTime = DateTime.Now;
             _context.Prayer.Add(Prayer);
             await _context.SaveChangesAsync();
 
