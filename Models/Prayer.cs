@@ -67,7 +67,7 @@ public class Prayer
     [ValidateNever]
     public Category Category { get; set; } = null!;
 
-    public ICollection<Session> Sessions { get; set; } = new List<Session>();
+    public ICollection<Praying> Prayings { get; set; } = new List<Praying>();
 
     public async static Task<List<Prayer>> GetPrayersFiltered(PrayerContext _context, string? userId, FilterOptions options) { 
         List<Prayer> prayers = new List<Prayer>();

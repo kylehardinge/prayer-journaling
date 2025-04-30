@@ -29,7 +29,7 @@ namespace prayer.Pages.Sessions
             _userManager = userManager;
         }
 
-        public IActionResult OnGet()
+        public async Task<IActionResult> OnGetAsync()
         {
             Session = new Session();
             var task = _userManager.GetUserAsync(User);
@@ -41,8 +41,17 @@ namespace prayer.Pages.Sessions
             
             Session.StartTime = DateTime.Now;
             _context.Session.Add(Session);
+            var prayers = await Prayer.GetPrayersFiltered(_context, Session.User.Id, new FilterOptions() {Status = StatusOptions.Unanswered, ExtraOptions = ExtraFilterOptions.Today});
+            foreach (Prayer prayer in prayers)
+            {
+                var praying = new Praying() {
+                    Session = Session,
+                    Prayer = prayer,
+                    Added = DateTime.Now,
+                };
+                _context.Praying.Add(praying);
+            }
             _context.SaveChanges();
-            Console.WriteLine("Id: " + Session.Id);
             return RedirectToPage("./Details", new { id = Session.Id });
         }
     }

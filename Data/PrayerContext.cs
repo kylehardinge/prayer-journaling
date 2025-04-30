@@ -16,6 +16,8 @@ public partial class PrayerContext : IdentityDbContext<AppUser>
     public DbSet<Group> Group { get; set; } = null!;
 
     public DbSet<Prayer> Prayer { get; set; } = null!;
+
+    public DbSet<Praying> Praying { get; set; } = null!;
     
     public DbSet<Session> Session { get; set; } = null!;
 
@@ -34,7 +36,7 @@ public partial class PrayerContext : IdentityDbContext<AppUser>
     protected override void OnModelCreating(ModelBuilder builder) {
         base.OnModelCreating(builder);
         
-        // Define the UserGroup relation
+        // Define the Membership relation
         builder.Entity<Membership>().HasKey(m => new {m.UserId, m.GroupId});
 
         builder.Entity<Membership>()
@@ -46,6 +48,19 @@ public partial class PrayerContext : IdentityDbContext<AppUser>
             .HasOne(m => m.Group)
             .WithMany(u => u.Memberships)
             .HasForeignKey(m => m.GroupId);
+
+        // Define the Praying relation
+        builder.Entity<Praying>().HasKey(m => new {m.SessionId, m.PrayerId});
+
+        builder.Entity<Praying>()
+            .HasOne(m => m.Session)
+            .WithMany(u => u.Prayings)
+            .HasForeignKey(m => m.SessionId);
+
+        builder.Entity<Praying>()
+            .HasOne(m => m.Prayer)
+            .WithMany(u => u.Prayings)
+            .HasForeignKey(m => m.PrayerId);
 
         // Define roles for RBAC
         var admin = new IdentityRole("admin");

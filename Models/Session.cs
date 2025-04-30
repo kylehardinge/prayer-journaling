@@ -19,5 +19,5 @@ public class Session
     [ForeignKey("UserId")]
     public AppUser User { get; set; } = null!;
 
-    public ICollection<Prayer> Prayers { get; set; } = null!;
+    public ICollection<Praying> Prayings { get; set; } = new List<Praying>();
 }
