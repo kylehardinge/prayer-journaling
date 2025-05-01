@@ -1,10 +1,10 @@
 # Prayer Journaling App
 ## Run
-## Database Diagram
-![Diagram](db-diagram.svg "Diagram for prayer journaling app")
-In this project the code is the source of truth rather than the database
-## Session Wireframe
-![Wireframe](prayer-session.svg "Wireframe for the session view")
+Once you have downloaded the source code you must set the connection string in the `appsettings.json` file. After that is done, you can run the migrations to setup the app. Finally, you can run the app.
+```shell
+dotnet ef database update
+dotnet run
+```
 ## Functionality
  - When a user creates an account, there is a personal group that is created.
  - A group can have categories that are associated with it to divide up the group.
@@ -22,27 +22,26 @@ In this project the code is the source of truth rather than the database
  - [x] Add prayers from group page
  - [x] Add prayers from category page
  - [x] Filter Prayers based on group, category, status, today, etc.
- - [ ] Stop session
+ - [x] Stop session
  - [x] Add prayers to session
- - [ ] Working recurrence
- - [ ] Improve UI
+ - [x] Working recurrence
+ - [x] Improve UI
  - [x] Setup Databases with Migrations
  - [x] Identity Authentication
  - [x] Login/Signup Page
- - [ ] Home Page
+ - [x] Home Page
     - [x] Start prayer
     - [x] List groups
-    - [ ] Display prayers for personal group
+    - [x] Display prayers for personal group
  - [x] CRUD Prayer
  - [x] CRUD Groups
  - [x] CRUD Categories
- - [ ] CRUD Membership within Groups
+ - [x] CRUD Membership within Groups
     - This will happen on a group page
     - Delete from group
- - [ ] CRUD Session
+ - [x] CRUD Session
     - [x] Way to add prayers to the session automatically
     - [x] Notes section
- - [ ] Error Handling
  - [x] Create new categories on group create
  - [x] Create new group on user registration
 
@@ -55,6 +54,7 @@ In this project the code is the source of truth rather than the database
  - [ ] Set the frequency to multiple days per week
  - [x] Use bootswatch to change the theme
  - [ ] Dark mode switcher
+ - [ ] Better Error Handling
  - [ ] Timer
  - [ ] Manually add prayers to the group
  - [ ] Better recurrence input (js/server-side validation)
