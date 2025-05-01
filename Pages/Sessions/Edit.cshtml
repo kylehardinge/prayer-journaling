@@ -16,9 +16,10 @@
             <input type="hidden" asp-for="Session.Id" />
             <div class="form-group">
                 <label asp-for="Session.Notes" class="control-label"></label>
-                <input asp-for="Session.Notes" class="form-control" />
+                <textarea asp-for="Session.Notes" class="form-control"></textarea>
                 <span asp-validation-for="Session.Notes" class="text-danger"></span>
             </div>
+            <input asp-for="Session.User.Id" class="form-control" type="hidden"/>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>

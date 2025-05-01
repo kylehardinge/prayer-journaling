@@ -57,7 +57,7 @@ namespace prayer.Pages.Prayers
                 await _context.SaveChangesAsync();
             }
 
-            return RedirectToPage("./Index");
+            return RedirectToPage("./All");
         }
     }
 }

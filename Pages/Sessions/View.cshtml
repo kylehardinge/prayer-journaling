@@ -18,6 +18,8 @@
             <textarea asp-for="Session.Notes" class="form-control" rows=20> </textarea>
             <span asp-validation-for="Session.Notes" class="text-danger"></span>
         </div>
+            <input asp-for="Session.StartTime" class="form-control" type="hidden" />
+            <input asp-for="Session.User.Id" class="form-control" type="hidden" />
         <div class="form-group">
             <input type="submit" value="Save" class="btn btn-primary" />
         </div>
@@ -27,6 +29,9 @@
             <tr>
                 <th>
                     @Html.DisplayNameFor(model => model.SessionPrayers[0].Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.SessionPrayers[0].Description)
                 </th>
                 <th></th>
             </tr>
@@ -38,9 +43,12 @@
                     @Html.DisplayFor(modelItem => item.Name)
                 </td>
                 <td>
-                    <a asp-page="../Prayer/Edit" asp-route-id="@item.Id">Edit</a> |
-                    <a asp-page="../Prayer/Details" asp-route-id="@item.Id">Details</a> |
-                    <a asp-page="../Prayer/Delete" asp-route-id="@item.Id">Delete</a>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    <a asp-page="../Prayers/Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-page="../Prayers/Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-page="../Prayers/Delete" asp-route-id="@item.Id">Delete</a>
                 </td>
             </tr>
             }

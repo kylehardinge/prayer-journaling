@@ -14,6 +14,9 @@ namespace prayer.Pages.Categories
     {
         private readonly prayer.Data.PrayerContext _context;
 
+        [BindProperty(SupportsGet = true)]
+        public int? FromGroupId { get; set; }
+
         public CreateModel(prayer.Data.PrayerContext context)
         {
             _context = context;
@@ -21,7 +24,14 @@ namespace prayer.Pages.Categories
 
         public IActionResult OnGet()
         {
-        ViewData["GroupId"] = new SelectList(_context.Group, "Id", "Name");
+            if (FromGroupId != null) {
+                Category = new Category
+                {
+                    GroupId = (int)FromGroupId,
+                };
+            }
+
+            ViewData["GroupId"] = new SelectList(_context.Group, "Id", "Name");
             return Page();
         }
 
@@ -39,6 +49,9 @@ namespace prayer.Pages.Categories
             _context.Category.Add(Category);
             await _context.SaveChangesAsync();
 
+            if (FromGroupId != null) {
+                return RedirectToPage("../Groups/Details", new {id = FromGroupId});
+            }
             return RedirectToPage("./Index");
         }
     }

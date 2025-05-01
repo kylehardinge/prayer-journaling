@@ -89,8 +89,18 @@ namespace prayer.Pages.Prayers
 
             _context.Prayer.Add(Prayer);
             await _context.SaveChangesAsync();
+            if (FromGroupId != null) {
+                return RedirectToPage("../Groups/Details", new {id = FromGroupId});
+            }
 
-            return RedirectToPage("./Index");
+            if (FromCategoryId != null) {
+                var groupId = _context.Category
+                    .Where(c => c.Id == FromCategoryId)
+                    .Single().GroupId;
+                return RedirectToPage("../Groups/Details", new {id = groupId});
+            }
+
+            return RedirectToPage("../Home");
         }
     }
 }

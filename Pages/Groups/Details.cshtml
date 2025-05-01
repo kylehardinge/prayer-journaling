@@ -5,49 +5,57 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
+<h1>@Html.DisplayFor(model => model.Group.Name)</h1>
+<p>@Html.DisplayFor(model => model.Group.Description)</p>
 
 <div>
-    <h4>Group</h4>
+    <a asp-page="../Prayers/Create" asp-route-FromGroupId="@Model.Group.Id">New Prayer</a> |
+    <a asp-page="../Categories/Create" asp-route-FromGroupId="@Model.Group.Id">Create New Category</a> |
+    <a asp-page="../Memberships/Create" asp-route-FromGroupId="@Model.Group.Id">Add Member</a>
     <hr />
-    <a asp-page="../Prayers/Create" asp-route-FromGroupId="@Model.Group.Id">New Prayer</a>
-    <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Group.Name)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Group.Name)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Group.Description)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Group.Description)
-        </dd>
-    </dl>
     @foreach (var category in Model.Prayers) {
         <h2>
-            <a asp-page="../Categories/Details" asp-route-id="@category.Key.Id">@Html.DisplayFor(modelItem => category.Key.Name)</a>
+            @Html.DisplayFor(modelItem => category.Key.Name)
         </h2>
         <a asp-page="../Prayers/Create" asp-route-FromCategoryId="@category.Key.Id">New Prayer</a>
-        <table>
-        @foreach (var prayer in category.Value) {
-            <td>
-                @Html.DisplayFor(modelItem => prayer.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => prayer.Description)
-            </td>
-            <td>
-                <a asp-page="../Prayers/Edit" asp-route-id="@prayer.Id">Edit</a> |
-                <a asp-page="../Prayers/Details" asp-route-id="@prayer.Id">Details</a> |
-                <a asp-page="../Prayers/Delete" asp-route-id="@prayer.Id">Delete</a>
-            </td>
+        <div class="table-responsive-sm">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Name</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">Recurrence</th>
+                        <th scope="col">Status</th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+            @foreach (var prayer in category.Value) {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => prayer.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => prayer.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => prayer.Recurrence)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => prayer.Status)
+                </td>
+                <td>
+                    <a asp-page="../Prayers/Edit" asp-route-id="@prayer.Id">Edit</a> |
+                    <a asp-page="../Prayers/Details" asp-route-id="@prayer.Id">Details</a> |
+                    <a asp-page="../Prayers/Delete" asp-route-id="@prayer.Id">Delete</a>
+                </td>
+            </tr>
             }
-        </table>
+            </table>
+        </div>
     }
 </div>
 <div>
     <a asp-page="./Edit" asp-route-id="@Model.Group.Id">Edit</a> |
+    <a asp-page="../Memberships/Delete" asp-route-FromGroupId="@Model.Group.Id">Leave Group</a> |
     <a asp-page="./Index">Back to List</a>
 </div>

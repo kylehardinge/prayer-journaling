@@ -86,6 +86,8 @@ namespace prayer.Pages.Prayers
                 return Page();
             }
 
+            Prayer.UpdateTime = DateTime.Now;
+
             _context.Attach(Prayer).State = EntityState.Modified;
 
             try
@@ -104,7 +106,7 @@ namespace prayer.Pages.Prayers
                 }
             }
 
-            return RedirectToPage("./Index");
+            return RedirectToPage("./All");
         }
 
         private bool PrayerExists(int id)

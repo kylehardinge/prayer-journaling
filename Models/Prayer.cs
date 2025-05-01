@@ -57,6 +57,7 @@ public class Prayer
 
     public RecurrenceOptions Recurrence { get; set; }
 
+    [Display(Name = "0-6: Week Days, 1-31: Month Days")]
     public int? RecurrenceValue { get; set; }
 
     public StatusOptions Status { get; set; }

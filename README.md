@@ -17,16 +17,14 @@ In this project the code is the source of truth rather than the database
 
  - **Note:** Due to lack of time, everyone is a "group administrator" for the groups they are members of, ie. they can do CRUD on the group and add and remove members as they please.
 ## Todo
- - [ ] Add users to group from group page
- - [ ] Add categories from group page
- - [ ] Add prayers from group page
- - [ ] Add prayers from category page
- - [ ] Prayer cards
+ - [x] Add users to group from group page
+ - [x] Add categories from group page
+ - [x] Add prayers from group page
+ - [x] Add prayers from category page
  - [x] Filter Prayers based on group, category, status, today, etc.
  - [ ] Stop session
  - [x] Add prayers to session
  - [ ] Working recurrence
- - [ ] Better recurrence input (js/server-side validation)
  - [ ] Improve UI
  - [x] Setup Databases with Migrations
  - [x] Identity Authentication
@@ -40,6 +38,7 @@ In this project the code is the source of truth rather than the database
  - [x] CRUD Categories
  - [ ] CRUD Membership within Groups
     - This will happen on a group page
+    - Delete from group
  - [ ] CRUD Session
     - [x] Way to add prayers to the session automatically
     - [x] Notes section
@@ -58,3 +57,5 @@ In this project the code is the source of truth rather than the database
  - [ ] Dark mode switcher
  - [ ] Timer
  - [ ] Manually add prayers to the group
+ - [ ] Better recurrence input (js/server-side validation)
+ - [ ] Prayer cards

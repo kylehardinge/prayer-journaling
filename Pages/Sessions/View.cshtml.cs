@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
@@ -12,11 +14,13 @@ namespace prayer.Pages.Sessions
 {
     public class ViewModel : PageModel
     {
-        private readonly prayer.Data.PrayerContext _context;
+        private readonly PrayerContext _context;
+        private readonly UserManager<AppUser> _userManager;
 
-        public ViewModel(prayer.Data.PrayerContext context)
+        public ViewModel(PrayerContext context, UserManager<AppUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         [BindProperty]
@@ -30,7 +34,7 @@ namespace prayer.Pages.Sessions
                 return NotFound();
             }
 
-            var session = await _context.Session.FirstOrDefaultAsync(m => m.Id == id);
+            var session = await _context.Session.Include(s => s.User).FirstOrDefaultAsync(m => m.Id == id);
             if (session == null)
             {
                 return NotFound();
@@ -39,7 +43,8 @@ namespace prayer.Pages.Sessions
             {
                 Session = session;
             }
-            if (Session.StopTime != null) {
+            if (Session.StopTime != null)
+            {
                 return Redirect("./Details");
             }
             SessionPrayers = await _context.Session
@@ -47,7 +52,7 @@ namespace prayer.Pages.Sessions
                 .Where(s => s.SessionId == Session.Id)
                 .Select(p => p.Prayer)
                 .ToListAsync();
-            
+
             return Page();
             // if (Session.StopTime == null) {
             //     return Partial("_ViewInProgress");
@@ -58,6 +63,7 @@ namespace prayer.Pages.Sessions
         public async Task<IActionResult> OnPostAsync(int? id)
         {
 
+            Console.WriteLine("Lets do this!");
             if (!ModelState.IsValid)
             {
                 return Page();
@@ -88,7 +94,7 @@ namespace prayer.Pages.Sessions
                 }
             }
 
-            return RedirectToPage("./Home");
+            return RedirectToPage("../Home");
         }
 
         private bool SessionExists(int id)
